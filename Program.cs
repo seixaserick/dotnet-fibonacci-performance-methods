@@ -1,10 +1,9 @@
 ﻿
-using System.Runtime.CompilerServices;
 
 class Fibonacci
 {
 
-    static int[] dp = new int[0];  // public int array to store previows fibonacci calculations (like a inMemory cache)
+    static int[] dp = new int[0];  // public int array to store previous fibonacci calculations (like a inMemory cache)
     static int interactionsCountSimpleMethod;
     static int interactionsCountTailRecursiveMethod;
     static int interactionsCountDynamicProgrammingMethod;
@@ -18,7 +17,7 @@ class Fibonacci
         TimeSpan duration;
 
 
-
+        //Calling Fibonacci calculation comparing 3 different methods for Fib(42) until Fib(38)   
         for (int n = 42; n >= 38; n--)
         {
             interactionsCountDynamicProgrammingMethod = 0;
@@ -32,28 +31,23 @@ class Fibonacci
             start = DateTime.Now;
             result = CalculateFibonacciSimpleMethod(n);
             duration = DateTime.Now - start;
-            Console.WriteLine($"CalculateFibonacciSimpleMethod                              ({n}) is ---> {result} execution time: {duration.TotalMilliseconds.ToString().PadLeft(15)} ms and {interactionsCountSimpleMethod} loops");
+            Console.WriteLine($"CalculateFibonacciSimpleMethod                              ({n}) is ---> {result}. Execution time: {duration.TotalMilliseconds.ToString().PadLeft(15)}ms and {interactionsCountSimpleMethod} interactions");
 
 
-
-            //CalculateFibonacciDynamicProgrammingMethod() --> fast, linear, intuitive
+            //CalculateFibonacciDynamicProgrammingMethod() --> fast, flat, linear, intuitive, cached for subsequent requests
             start = DateTime.Now;
             result = CalculateFibonacciDynamicProgrammingMethod(n);
             duration = DateTime.Now - start;
-            Console.WriteLine($"CalculateFibonacciDynamicProgrammingMethod                  ({n}) is ---> {result} execution time: {duration.TotalMilliseconds.ToString().PadLeft(15)} ms and {interactionsCountDynamicProgrammingMethod}");
+            Console.WriteLine($"CalculateFibonacciDynamicProgrammingMethod                  ({n}) is ---> {result}. Execution time: {duration.TotalMilliseconds.ToString().PadLeft(15)}ms and {interactionsCountDynamicProgrammingMethod} interactions");
 
-                                   
 
             //CalculateFibonacciTailRecursiveMethod() --> fast, linear, recursive, less intuitive
             start = DateTime.Now;
             result = CalculateFibonacciTailRecursiveMethod(n);
             duration = DateTime.Now - start;
-            Console.WriteLine($"CalculateFibonacciTailRecursiveMethod                       ({n}) is ---> {result} execution time: {duration.TotalMilliseconds.ToString().PadLeft(15)} ms and {interactionsCountTailRecursiveMethod}");
-
-
+            Console.WriteLine($"CalculateFibonacciTailRecursiveMethod                       ({n}) is ---> {result}. Execution time: {duration.TotalMilliseconds.ToString().PadLeft(15)}ms and {interactionsCountTailRecursiveMethod} interactions");
 
         }
-
 
 
     }
@@ -79,7 +73,7 @@ class Fibonacci
 
         if (n == 0) return 0;
 
-        // If previows calculation greater than n already stored values in the array, return the stored Fibonacci calculation from memory array
+        // If previous calculation greater than "n" was already stored in the array, returns the stored Fibonacci calculation from memory array
         if (dp.Length > n && dp[n] > 0)
         {
             return dp[n]; // return from memory array
