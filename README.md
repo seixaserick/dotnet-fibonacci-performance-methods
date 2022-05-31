@@ -112,6 +112,14 @@ docker rm --force dotnet-fibonacci-performance-methods
 using System.Runtime.CompilerServices;
 1. Implement the ```[MethodImplAttribute(MethodImplOptions.AggressiveOptimization)]``` attribute before the function ```CalculateFibonacciSimpleMethod()``` and compare duration after rebuild. Read this article https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.methodimploptions?view=net-6.0
 2. Try to implement cache in Fibonacci functions to return from cache if it was requested before. You can do it using Redis, Memcached, ```System.Runtime.Caching/MemoryCache``` or other distributed Cache solution. See [these examples](https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/performance/caching/distributed/samples/6.x/DistCacheSample).
-3. Inspect the Dockerfile content to see how docker pulls imagens from images's hub
-4. Try to create a WebAPI and implement an endpoint to return Fibonacci calculations in a GET endpoint like ```https://my-api-server.com/api/fibonacci/41``` 
+3. Replace the duration calc method for:
+    ```
+    Stopwatch stopWatch = new Stopwatch();
+    stopWatch.Start();
+    CalculateFibonacci...
+    stopWatch.Stop(); 
+    TimeSpan ts = stopWatch.Elapsed;
+    ```
+4. Inspect the Dockerfile content to see how docker pulls imagens from images's hub
+5. Try to create a WebAPI and implement an endpoint to return Fibonacci calculations in a GET endpoint like ```https://my-api-server.com/api/fibonacci/41``` 
 
